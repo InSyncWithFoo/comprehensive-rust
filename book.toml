@@ -30,7 +30,7 @@ granularity = 0
 [output.pandoc]
 optional = true
 disabled = true
-hosted-html = "https://google.github.io/comprehensive-rust/"
+hosted-html = "https://insyncwithfoo.github.io/comprehensive-rust/"
 
 [output.pandoc.profile.pdf]
 output-file = "comprehensive-rust.pdf"
@@ -63,7 +63,7 @@ additional-css = [
   "theme/css/rtl.css",
 ]
 site-url = "/comprehensive-rust/"
-git-repository-url = "https://github.com/google/comprehensive-rust"
+git-repository-url = "https://github.com/InSyncWithFoo/comprehensive-rust"
 edit-url-template = "https://github.com/google/comprehensive-rust/edit/main/{path}"
 
 [output.html.fold]
