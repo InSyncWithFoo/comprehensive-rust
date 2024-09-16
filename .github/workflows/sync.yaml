@@ -1,0 +1,35 @@
+name: Synchronize with upstream
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Synchronize with upstream
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Fetch sources
+        uses: actions/checkout@v4
+        with:
+          repository: InSyncWithFoo/comprehensive-rust
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - run: |
+          git config --global user.name "InSyncWithFoo"
+          git config --global user.email "122007197+InSyncWithFoo@users.noreply.github.com"
+
+          git remote add upstream https://github.com/google/comprehensive-rust
+          git fetch --depth=10000 --all
+
+          UPSTREAM_SHA="$(git rev-parse upstream/main)"
+          HEAD_1_SHA="$(git rev-parse origin/main~1)"
+          HEAD_SHA="$(git rev-parse origin/main)"
+
+          git reset --hard "$UPSTREAM_SHA"
+          git cherry-pick "$HEAD_1_SHA"
+          git cherry-pick "$HEAD_SHA"
+          git push -f
