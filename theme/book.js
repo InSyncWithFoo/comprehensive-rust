@@ -190,13 +190,6 @@ function mdbook_something_else_has_focus(e) {
         })
         .then(response => response.json())
         .then(response => {
-            const endTime = window.performance.now();
-            gtag("event", "playground", {
-                "modified": playgroundModified,
-                "error": (response.error == null) ? null : 'compilation_error',
-                "latency": (endTime - startTime) / 1000,
-            });
-
             if (response.error != null && response.error != '') {
                 // output the error if there's any. e.g. timeout
                 result_block.innerText = response.error;
@@ -226,12 +219,6 @@ function mdbook_something_else_has_focus(e) {
             }
         })
         .catch(error => {
-            const endTime = window.performance.now();
-            gtag("event", "playground", {
-                "modified": playgroundModified,
-                "error": error.message,
-                "latency": (endTime - startTime) / 1000,
-            });
             result_block.innerText = "Playground Communication: " + error.message
         });
     }
